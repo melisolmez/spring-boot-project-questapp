@@ -1,6 +1,9 @@
 package com.project.questapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "comment")
@@ -9,9 +12,17 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long postId;
+    @ManyToOne(fetch = FetchType.LAZY) // ilgili user o getirmene gerek yok
+    @JoinColumn(name = "post_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)// bir user silindiğinde onunla ilgili postlarda silinecek
+    @JsonIgnore
+    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY) // ilgili user o getirmene gerek yok
+    @JoinColumn(name = "user_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)// bir user silindiğinde onunla ilgili postlarda silinecek
+    @JsonIgnore
+    private User user;
 
-    private Long userId;
     @Lob
     @Column(columnDefinition = "text")
     private String text;
@@ -19,23 +30,24 @@ public class Comment {
     public Long getId(){
         return id;
     }
-
-    public void setPostId(Long postId){
-        this.postId=postId;
-    }
-    public Long getPostId(){
-        return postId;
-    }
-    public void setUserId(Long userId){
-        this.userId=userId;
-    }
-    public Long getUserId(){
-        return userId;
-    }
     public void setText(String text){
         this.text=text;
     }
     public String getText(){
         return text;
     }
+
+    public void setUser(User user){
+        this.user=user;
+    }
+    public User getUser(){
+        return user;
+    }
+    public void setPost(Post post){
+        this.post=post;
+    }
+    public Post getPost(){
+        return post;
+    }
+
 }
