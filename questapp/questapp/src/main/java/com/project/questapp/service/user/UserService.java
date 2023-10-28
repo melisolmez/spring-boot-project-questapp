@@ -49,7 +49,12 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public boolean deleteUserById(Long id) {
+        User existingUser=userRepository.findById(id).orElse(null);
+        if(existingUser==null){
+            return false;
+        }
         userRepository.deleteById(id);
+        return true;
     }
 }
