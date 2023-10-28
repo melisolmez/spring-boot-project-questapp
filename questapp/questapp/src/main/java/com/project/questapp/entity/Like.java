@@ -1,6 +1,9 @@
 package com.project.questapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "p_like")
@@ -9,23 +12,32 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long postId;
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY) // ilgili user o getirmene gerek yok
+    @JoinColumn(name = "post_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)// bir user silindiğinde onunla ilgili postlarda silinecek
+    @JsonIgnore
+    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY) // ilgili user o getirmene gerek yok
+    @JoinColumn(name = "user_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)// bir user silindiğinde onunla ilgili postlarda silinecek
+    @JsonIgnore
+    private User user;
 
     public Long getId(){
         return id;
     }
-    public void setPostId(Long postId){
-        this.postId=postId;
+    public void setUser(User user){
+        this.user=user;
     }
-    public Long getPostId(){
-        return postId;
+    public User getUser(){
+        return user;
     }
-    public void setUserId(Long userId){
-        this.userId=userId;
+    public void setPost(Post post){
+        this.post=post;
     }
-    public Long getUserId(){
-        return userId;
+    public Post getPost(){
+        return post;
     }
+
 }
 
