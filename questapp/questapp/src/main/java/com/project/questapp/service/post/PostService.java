@@ -1,4 +1,4 @@
-package com.project.questapp.service.like;
+package com.project.questapp.service.post;
 
 import com.project.questapp.entity.Post;
 import com.project.questapp.entity.User;
