@@ -1,7 +1,6 @@
 package com.project.questapp.controller;
 
 import com.project.questapp.entity.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 public record UserServiceRequest(
         Long id,
