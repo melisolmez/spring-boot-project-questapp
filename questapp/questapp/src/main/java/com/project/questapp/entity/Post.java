@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.Optional;
+
 @Entity
 @Table(name = "post")
 public class Post {
@@ -43,4 +45,8 @@ public class Post {
     public User getUser(){
         return user;
     }
+    public void setUser(Long id) {
+        this.id=id;
+    }
+
 }
