@@ -1,6 +1,6 @@
 package com.project.questapp.service.user;
 
-import com.project.questapp.entity.User;
+import com.project.questapp.model.User;
 import com.project.questapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
