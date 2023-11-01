@@ -1,6 +1,6 @@
 package com.project.questapp.service.user;
 
-import com.project.questapp.entity.User;
+import com.project.questapp.model.User;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
