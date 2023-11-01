@@ -1,4 +1,4 @@
-package com.project.questapp.entity;
+package com.project.questapp.model;
 
 import jakarta.persistence.*;
 
