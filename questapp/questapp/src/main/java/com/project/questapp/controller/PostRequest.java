@@ -1,7 +1,7 @@
-package com.project.questapp.request;
+package com.project.questapp.controller;
 
-import com.project.questapp.entity.Post;
-import com.project.questapp.entity.User;
+import com.project.questapp.model.Post;
+import com.project.questapp.model.User;
 
 public record PostRequest(
         Long userId,
