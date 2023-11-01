@@ -1,6 +1,6 @@
 package com.project.questapp.controller;
 
-import com.project.questapp.entity.User;
+import com.project.questapp.model.User;
 import com.project.questapp.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
