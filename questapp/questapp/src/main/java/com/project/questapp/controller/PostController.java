@@ -1,7 +1,6 @@
 package com.project.questapp.controller;
 
-import com.project.questapp.entity.Post;
-import com.project.questapp.request.PostRequest;
+import com.project.questapp.model.Post;
 import com.project.questapp.service.post.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +27,11 @@ public class PostController {
     @PostMapping
     public Post createOnePost(@RequestBody PostRequest postRequest){
         return postService.savePost(postRequest.toPostService());
+    }
+
+    @PutMapping("/{postId}")
+    public Post updatePost(@PathVariable long postId, @RequestBody PostUpdateRequest postUpdateRequest){
+        return  postService.updatePostById(postId,postUpdateRequest.toPostService());
     }
 
     @DeleteMapping("/{postId}")
