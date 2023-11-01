@@ -1,6 +1,6 @@
 package com.project.questapp.service.comment;
 
-import com.project.questapp.entity.User;
+import com.project.questapp.model.Comment;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.Optional;
 @Validated
 public interface CommentServiceInterface {
 
-    List<User> findAllUsers();
+    List<Comment> getAllCommentsWithParam(Optional<Long> userId, Optional<Long> postId);
 
-    User saveUser(User user);
+    Comment getOneCommentById(Long commentId);
 
-    Optional<User> findUserById(Long id);
+    Comment createOneComment(Comment comment);
 
-    User updateUser(User user,Long id);
+    Comment updateOneCommentById(Long commentId,Comment comment);
 
-    boolean deleteUserById(Long id);
+    void deleteCommentById(Long commentId);
 }
