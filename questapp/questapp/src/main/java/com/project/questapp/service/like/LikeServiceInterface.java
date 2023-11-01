@@ -1,20 +1,18 @@
 package com.project.questapp.service.like;
 
-import com.project.questapp.entity.User;
+
+import com.project.questapp.model.Like;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @Validated
 public interface LikeServiceInterface {
-    List<User> findAllUsers();
 
-    User saveUser(User user);
 
-    Optional<User> findUserById(Long id);
+    List<Like> getAllLike(Optional<Long> userId, Optional<Long> postId);
 
-    User updateUser(User user,Long id);
-
-    boolean deleteUserById(Long id);
+    Like getOneLikeById(Long likeId);
 }
