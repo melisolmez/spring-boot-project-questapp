@@ -1,9 +1,8 @@
 package com.project.questapp.service.post;
 
-import com.project.questapp.entity.Post;
-import com.project.questapp.entity.User;
+import com.project.questapp.model.Post;
+import com.project.questapp.model.User;
 import com.project.questapp.repository.PostRepository;
-import com.project.questapp.request.PostRequest;
 import com.project.questapp.service.user.UserService;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +50,20 @@ public class PostService implements PostServiceInterface {
     @Override
     public void deletePostById(Long id) {
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public Post updatePostById(Long postId,Post post) {
+     Optional<Post> exitspost=postRepository.findById(postId);
+     if(exitspost.isPresent()){
+         Post newPost= exitspost.get();
+         newPost.setText(post.getText());
+         newPost.setTitle(post.getTitle());
+
+         postRepository.save(newPost);
+         return newPost;
+     }
+     return  null;
     }
 
 }
