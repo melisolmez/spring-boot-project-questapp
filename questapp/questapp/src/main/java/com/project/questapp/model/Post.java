@@ -1,11 +1,9 @@
-package com.project.questapp.entity;
+package com.project.questapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.Optional;
 
 @Entity
 @Table(name = "post")
@@ -26,6 +24,9 @@ public class Post {
 
     public Long getId(){
         return id;
+    }
+    public void setId(Long id){
+        this.id=id;
     }
     public void setTitle(String title){
         this.title=title;
