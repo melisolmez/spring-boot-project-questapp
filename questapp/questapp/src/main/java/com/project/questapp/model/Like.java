@@ -1,4 +1,4 @@
-package com.project.questapp.entity;
+package com.project.questapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -25,6 +25,9 @@ public class Like {
 
     public Long getId(){
         return id;
+    }
+    public void setId(Long id){
+        this.id=id;
     }
     public void setUser(User user){
         this.user=user;
