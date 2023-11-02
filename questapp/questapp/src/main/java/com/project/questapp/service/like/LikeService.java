@@ -26,11 +26,11 @@ public class LikeService implements LikeServiceInterface {
     @Override
     public List<Like> getAllLike(Optional<Long> userId, Optional<Long> postId) {
         if(userId.isPresent()&& postId.isPresent()){
-            return likeRepository.findByUserIdAndPostId(userId,postId);
+            return likeRepository.findLikeByUserIdAndPostId(userId,postId);
         }else if(userId.isPresent()){
-         return likeRepository.findbyUserId(userId);
+         return likeRepository.findLikeByUserId(userId);
         }else if(postId.isPresent()){
-            return likeRepository.findByPostId(postId);
+            return likeRepository.findLikeByPostId(postId);
         }else
             return likeRepository.findAll();
     }
