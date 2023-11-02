@@ -17,5 +17,5 @@ public interface CommentServiceInterface {
 
     Comment updateOneCommentById(Long commentId,Comment comment);
 
-    void deleteCommentById(Long commentId);
+    boolean deleteCommentById(Long commentId);
 }
