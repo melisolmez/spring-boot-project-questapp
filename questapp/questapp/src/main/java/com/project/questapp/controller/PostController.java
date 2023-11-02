@@ -2,6 +2,8 @@ package com.project.questapp.controller;
 
 import com.project.questapp.model.Post;
 import com.project.questapp.service.post.PostService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +18,41 @@ public class PostController {
         this.postService = postService;
     }
     @GetMapping
-    public List<Post> getAllPosts(@RequestParam Optional<Long> userId){
-       return postService.getAllPosts(userId);
+    public ResponseEntity<List<Post>> getAllPosts(@RequestParam Optional<Long> userId){
+      List<Post> posts=postService.getAllPosts(userId);
+      if(!posts.isEmpty()){
+          return new ResponseEntity<>(posts,HttpStatus.OK);
+      }
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/{postid}")
-    public Optional<Post> getOnePostById(@PathVariable long postid){
-        return postService.getOnePostById(postid);
+    @GetMapping("/{postId}")
+    public ResponseEntity<?> getOnePostById(@PathVariable long postId){
+        if(postService.getOnePostById(postId).isPresent()){
+            return new ResponseEntity<>("Post found", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Post not found",HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
-    public Post createOnePost(@RequestBody PostRequest postRequest){
-        return postService.savePost(postRequest.toPostService());
+    public ResponseEntity<Post> createOnePost(@RequestBody PostRequest postRequest) {
+        Post savedPost = postService.savePost(postRequest.toPostService());
+        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
 
     @PutMapping("/{postId}")
-    public Post updatePost(@PathVariable long postId, @RequestBody PostUpdateRequest postUpdateRequest){
-        return  postService.updatePostById(postId,postUpdateRequest.toPostService());
+    public ResponseEntity<?> updatePost(@PathVariable long postId, @RequestBody PostUpdateRequest postUpdateRequest){
+        if(postService.updatePostById(postId,postUpdateRequest.toPostService())!=null){
+            return new ResponseEntity<>("Post update successfully",HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>("Post doesn't update ",HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{postId}")
-    public void deletePost(@PathVariable long postId){
-        postService.deletePostById(postId);
+    public ResponseEntity<String> deletePost(@PathVariable long postId){
+        if(postService.deletePostById(postId)){
+            return new ResponseEntity<>("Post deleted successfully",HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>("Post not found",HttpStatus.NOT_FOUND);
     }
 
 }
