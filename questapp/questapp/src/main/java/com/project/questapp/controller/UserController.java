@@ -18,14 +18,19 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> findAllUsers(){
-        return userService.findAllUsers();
+    public ResponseEntity<List<User>> findAllUsers() {
+        List<User> users = userService.findAllUsers();
+        if (!users.isEmpty()) {
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @PostMapping
+    public ResponseEntity<User> save(@RequestBody UserServiceRequest user) {
+        User savedUser = userService.saveUser(user.toServiceRequest());
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    @PostMapping
-    public User save(@RequestBody UserServiceRequest user){
-        return userService.saveUser(user.toServiceRequest());
-    }
     @GetMapping("/{id}")
     public ResponseEntity<?> findUserById(@PathVariable Long id){
         if(userService.findUserById(id).isPresent()){
@@ -48,5 +53,4 @@ public class UserController {
         }
         return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
     }
-
 }
