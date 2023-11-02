@@ -16,7 +16,7 @@ public interface PostServiceInterface {
 
     Post savePost(Post post);
 
-    void deletePostById(Long id);
+    boolean deletePostById(Long id);
 
     Post updatePostById(Long id,Post post);
 
