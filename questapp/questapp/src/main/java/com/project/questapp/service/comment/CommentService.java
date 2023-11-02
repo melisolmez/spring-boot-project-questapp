@@ -68,7 +68,11 @@ public class CommentService implements CommentServiceInterface {
     }
 
     @Override
-    public void deleteCommentById(Long commentId) {
-         commentRepository.deleteById(commentId);
+    public boolean deleteCommentById(Long commentId) {
+         Comment existComment=commentRepository.findById(commentId).orElse(null);
+         if(existComment==null){
+             return false;
+         }
+         return true;
     }
 }
