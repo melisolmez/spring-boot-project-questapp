@@ -1,6 +1,8 @@
 package com.project.questapp.service.like;
 
 import com.project.questapp.model.Like;
+import com.project.questapp.model.Post;
+import com.project.questapp.model.User;
 import com.project.questapp.repository.LikeRepository;
 import com.project.questapp.service.post.PostService;
 import com.project.questapp.service.user.UserService;
@@ -37,8 +39,33 @@ public class LikeService implements LikeServiceInterface {
     public Like getOneLikeById(Long likeId) {
         return likeRepository.findById(likeId).orElse(null);
 
-        }
-
-
     }
+
+    @Override
+    public Like createOneLike(Like like) {
+        Optional<User> user=userService.findUserById(like.getUser().getId());
+        Optional<Post> post=postService.getOnePostById(like.getPost().getId());
+
+        if(user.isPresent()&& post.isPresent()){
+            Like newLike= new Like();
+            newLike.setUser(like.getUser());
+            newLike.setPost(like.getPost());
+
+            return likeRepository.save(newLike);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteLikeById(Long likeId) {
+        User existingUser= likeRepository.findById(likeId).orElse(null).getUser();
+        if(existingUser==null){
+            return false;
+        }
+        likeRepository.deleteById(likeId);
+        return true;
+    }
+
+
+}
 
